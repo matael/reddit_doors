@@ -6,12 +6,16 @@ use strict;
 use warnings;
 use 5.010;
 use LWP::Simple;
-use XML::RSS::Parser::Lite;
+use RedditRIL;
+use YAML;
+use File::Slurp;
 
-my $data = XML::RSS::Parser::Lite->new();
-$data->parse(get("http://www.reddit.com/r/vim/new/.rss?limit=5&t=all&sort=new"));
+my $data =read_file("./RedditRIL.conf") or die ("Error with conf. file $!");
+my $conf = Load($data);
 
-for (my $i = 0; $i < $data->count(); $i++) {
-	my $cur = $data->get($i);
-	say "Link $i\n\t+-> Title:: $cur->{title}\n\t+-> URL:: $cur->{url}\n";
+my $credentials = $conf->{credentials};
+my $api = RedditRIL->new(@{$credentials}[0], @{$credentials}[1]);
+foreach my $key (keys %{$conf}) {
+	next if $key eq "credentials";
+	$api->process($key, $conf->{$key});
 }
