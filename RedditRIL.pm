@@ -40,6 +40,7 @@ package RedditRIL;
 		my ($self,$item)  = @_;
 		say "+ Adding link $item->{url}";
 		get("$ril_url&url=$item->{url}&title=$item->{title}") or die ("Unable to upload link to RIL...\n\t$!");
+        say("\t=> Done uploading !");
 	}
 }
 1;
