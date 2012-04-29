@@ -10,13 +10,13 @@ use RedditRIL;
 use YAML;
 use File::Slurp;
 
-my $data =read_file("./RedditRIL.conf") or die ("Error with conf. file $!");
-my $conf = Load($data);
+my $raw_config =read_file("./RedditRIL.conf") or die ("Error with conf. file $!");
+my $config = Load($raw_config);
 
-my $credentials = $conf->{credentials};
+my $credentials = $config->{credentials};
 my $api = RedditRIL->new(@{$credentials}[0], @{$credentials}[1]);
-foreach my $key (keys %{$conf}) {
-	next if $key eq "credentials";
-    say "--> Now processing /r/$key";
-	$api->process($key, $conf->{$key});
+foreach my $subreddit (keys %{$config}) {
+	next if $subreddit eq "credentials";
+    say "--> Now processing /r/$subreddit";
+	$api->process_subreddit($subreddit, $config->{$subreddit});
 }
