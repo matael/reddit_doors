@@ -7,9 +7,9 @@ use XML::RSS::Parser::Lite;
 use Text::Match::FastAlternatives;
 
 my $ril_api_key = "5c2A5U01d2f4fR3f3cp5cF7NU6TKLG6b";
-my $ril_login = "";
-my $ril_pass = "";
-my $ril_url = "";
+my $ril_login;
+my $ril_pass;
+my $ril_url;
 
 sub new {
     my $self = shift;
