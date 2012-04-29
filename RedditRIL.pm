@@ -38,7 +38,7 @@ package RedditRIL;
 
 	sub add_to_ril {
 		my ($self,$item)  = @_;
-		say "+ Adding link $item->{url}";
+		say "+ Adding link $item->{url}\n\t[$item->{title}]";
 		get("$ril_url&url=$item->{url}&title=$item->{title}") or die ("Unable to upload link to RIL...\n\t$!");
         say("\t=> Done uploading !");
 	}
