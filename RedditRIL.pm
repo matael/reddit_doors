@@ -28,12 +28,15 @@ package RedditRIL;
 		my $data = XML::RSS::Parser::Lite->new();
 		$data->parse(get("http://www.reddit.com/r/$sub/new/.rss?limit=5&t=all&sort=new")) or die ("Erf.. a error occured :\n\t$!");
 		my $re  = join "|", @{$kws};
+        my $nothing = 1; # just for cosmetic purpose ;)
 		for (my $i = 0; $i < $data->count(); $i++) {
 			my $item = $data->get($i);
 			if ($item->{title} =~ $re) {
 				$self->add_to_ril($item);
+                $nothing = 0;
 			}
 		}
+        say "\tNothing to do here..." if $nothing;
 	}
 
 	sub add_to_ril {
