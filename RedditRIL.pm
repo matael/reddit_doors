@@ -24,12 +24,12 @@ sub process {
     # Get a subreddit name & keywords
     # as argument
     my ($self, $sub, $kws) = @_;
-    my $data = XML::RSS::Parser::Lite->new();
-    $data->parse(get("http://www.reddit.com/r/$sub/new/.rss?limit=5&t=all&sort=new")) or die ("Erf.. a error occured :\n\t$!");
+    my $parser = XML::RSS::Parser::Lite->new();
+    $parser->parse(get("http://www.reddit.com/r/$sub/new/.rss?limit=5&t=all&sort=new")) or die ("Erf.. a error occured :\n\t$!");
     my $re  = join "|", @{$kws};
     my $nothing = 1; # just for cosmetic purpose ;)
-    for (my $i = 0; $i < $data->count(); $i++) {
-        my $item = $data->get($i);
+    for (my $i = 0; $i < $parser->count(); $i++) {
+        my $item = $parser->get($i);
         if ($item->{title} =~ $re) {
             $self->add_to_ril($item);
             $nothing = 0;
