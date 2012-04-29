@@ -18,5 +18,5 @@ my $api = RedditRIL->new(@{$credentials}[0], @{$credentials}[1]);
 foreach my $subreddit (keys %{$config}) {
 	next if $subreddit eq "credentials";
     say "--> Now processing /r/$subreddit";
-	$api->process_subreddit($subreddit, $conf->{$subreddit});
+	$api->process_subreddit($subreddit, $config->{$subreddit});
 }
