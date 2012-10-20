@@ -19,7 +19,7 @@ sub new {
     return $self;
 }
 
-sub process_subreddit { 
+sub process_subreddit {
     # Process a subreddit,
     # Get a subreddit name & keywords
     # as argument
