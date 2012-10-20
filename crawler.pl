@@ -19,4 +19,8 @@ foreach my $subreddit (keys %{$config}) {
 	next if $subreddit eq "credentials";
     say "--> Now processing /r/$subreddit";
 	$api->process_subreddit($subreddit, $config->{$subreddit});
+
+	# no more than one request every 2 seconds
+	# (following reddit API rules)
+	sleep 2;
 }
